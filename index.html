@@ -47,6 +47,52 @@ nav a:hover{color:#fff}
 /* CART */
 .cart-item{display:flex;justify-content:space-between;margin:10px 0;border-bottom:1px solid #222;padding-bottom:8px}
 .checkout{background:linear-gradient(45deg,#d4af37,#f5e6a8);color:#000;padding:12px;border-radius:12px;margin-top:15px;text-align:center;cursor:pointer;font-weight:600}
+
+/* ========================================= */
+/* MOBILE RESPONSIVENESS FIXES               */
+/* ========================================= */
+@media (max-width: 768px) {
+    /* Stack the header and center items */
+    header {
+        flex-direction: column;
+        padding: 15px 20px;
+        gap: 15px;
+    }
+    .logo h1 {
+        font-size: 1.5rem; /* Slightly smaller logo text */
+    }
+    nav {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+    nav a {
+        margin-left: 0; /* Remove the wide left margin */
+    }
+    
+    /* Shrink the massive hero text */
+    .hero h2 {
+        font-size: 2.5rem;
+        padding: 0 15px;
+    }
+    
+    /* Give the products breathing room and force 1 column */
+    .products {
+        padding: 40px 20px;
+        grid-template-columns: 1fr;
+    }
+    
+    /* Tighten up the modal so it fits on small phone screens */
+    .modal {
+        padding: 10px;
+    }
+    .modal-content {
+        padding: 15px;
+    }
+    .modal img {
+        max-height: 40vh;
+    }
+}
 </style>
 </head>
 <body>
@@ -70,7 +116,6 @@ nav a:hover{color:#fff}
 
 <section class="products" id="products"></section>
 
-<!-- PRODUCT MODAL -->
 <div class="modal" id="productModal">
 <div class="modal-content">
 <span class="close" onclick="closeModal()">✕</span>
@@ -85,7 +130,6 @@ nav a:hover{color:#fff}
 </div>
 </div>
 
-<!-- CART -->
 <div class="modal" id="cartModal">
 <div class="modal-content">
 <span class="close" onclick="closeCart()">✕</span>
@@ -108,7 +152,7 @@ const price=(Math.floor(Math.random()*200)+200);
 const card=document.createElement('div');
 card.className='card';
 card.innerHTML=`
-<img src="product/img${i}.jpeg">
+<img src="product/img${i}.jpeg" loading="lazy">
 <div class="card-content">
 <h3>${names[i%names.length]}</h3>
 <div class="price">$${price}</div>
@@ -151,14 +195,31 @@ container.innerHTML='';
 let total=0;
 cart.forEach((item,index)=>{
 total+=item.price;
-container.innerHTML+=`<div class='cart-item'>${names[item.id%names.length]} <span>$${item.price} ❌</span></div>`;
+// Added an onclick to the X so users can actually remove items visually in the cart!
+container.innerHTML+=`<div class='cart-item'>${names[item.id%names.length]} <div><span>$${item.price}</span> <span style="cursor:pointer; margin-left:10px;" onclick="removeItem(${index})">❌</span></div></div>`;
 });
-container.innerHTML+=`<div class='cart-item' style='color:#d4af37;font-weight:600'><span>Total</span><span>$${total}</span></div>`;
+container.innerHTML+=`<div class='cart-item' style='color:#d4af37;font-weight:600; border-top: 1px solid #333; padding-top: 10px;'><span>Total</span><span>$${total}</span></div>`;
 }
 
 function closeCart(){document.getElementById('cartModal').style.display='none'}
 
+// Added the removeItem function back in so the X button works
+function removeItem(i){
+    cart.splice(i,1);
+    localStorage.setItem('cart',JSON.stringify(cart));
+    openCart();
+    updateCart();
+}
+
 function checkout(){alert('Next: Stripe Integration 🚀')}
+
+// Close modals when clicking the dark background
+window.onclick = function(event) {
+    const prodModal = document.getElementById('productModal');
+    const cartModal = document.getElementById('cartModal');
+    if (event.target === prodModal) closeModal();
+    if (event.target === cartModal) closeCart();
+}
 
 renderProducts();
 updateCart();
