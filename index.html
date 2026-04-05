@@ -7,35 +7,40 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins}
-body{background:#050505;color:#fff}
+body{background:#050505;color:#fff;scroll-behavior:smooth}
 
 /* HEADER */
-header{display:flex;justify-content:space-between;align-items:center;padding:20px 60px;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px 60px;background:rgba(0,0,0,0.6);backdrop-filter:blur(12px);position:sticky;top:0;z-index:10;transition:0.3s}
 .logo{display:flex;align-items:center;gap:10px}
 .logo img{height:35px}
 .logo h1{color:#d4af37;letter-spacing:3px;font-weight:600}
-nav a{color:#aaa;margin-left:25px;text-decoration:none;font-size:14px}
+nav a{color:#aaa;margin-left:25px;text-decoration:none;font-size:14px;position:relative}
+nav a::after{content:"";position:absolute;bottom:-5px;left:0;width:0;height:2px;background:#d4af37;transition:0.3s}
+nav a:hover::after{width:100%}
 nav a:hover{color:#fff}
-.cart-btn{background:linear-gradient(45deg,#d4af37,#f5e6a8);color:#000;padding:8px 15px;border-radius:20px;cursor:pointer;font-weight:600}
+.cart-btn{background:linear-gradient(45deg,#d4af37,#f5e6a8);color:#000;padding:8px 15px;border-radius:20px;cursor:pointer;font-weight:600;transition:0.3s}
+.cart-btn:hover{transform:scale(1.05)}
 
 /* HERO */
 .hero{height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,1)),url('product/img2.jpeg') center/cover}
-.hero h2{font-size:4rem;letter-spacing:3px;font-weight:600}
-.hero p{color:#aaa;margin-top:10px}
+.hero h2{font-size:4rem;letter-spacing:3px;font-weight:600;animation:fadeUp 1s ease}
+.hero p{color:#aaa;margin-top:10px;animation:fadeUp 1.3s ease}
 
 /* PRODUCTS */
 .products{padding:80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:35px}
 .card{background:#111;border-radius:20px;overflow:hidden;transition:.4s;border:1px solid rgba(255,255,255,0.05)}
-.card:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 20px 50px rgba(212,175,55,0.2)}
-.card img{width:100%;height:300px;object-fit:cover}
+.card:hover{transform:translateY(-10px) scale(1.03);box-shadow:0 20px 60px rgba(212,175,55,0.25)}
+.card img{width:100%;height:300px;object-fit:cover;transition:0.4s}
+.card:hover img{transform:scale(1.08)}
 .card-content{padding:18px}
 .card-content h3{font-weight:500}
 .price{color:#d4af37;margin-top:10px;font-weight:600}
-.btn{margin-top:12px;display:inline-block;padding:10px 18px;background:linear-gradient(45deg,#d4af37,#f5e6a8);color:#000;border-radius:20px;cursor:pointer;font-size:14px;font-weight:600}
+.btn{margin-top:12px;display:inline-block;padding:10px 18px;background:linear-gradient(45deg,#d4af37,#f5e6a8);color:#000;border-radius:20px;cursor:pointer;font-size:14px;font-weight:600;transition:0.3s}
+.btn:hover{transform:scale(1.05)}
 
 /* MODAL */
-.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);display:none;justify-content:center;align-items:center;z-index:20;padding:20px}
-.modal-content{background:#0f0f0f;padding:25px;border-radius:20px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;border:1px solid rgba(255,255,255,0.05)}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);display:none;justify-content:center;align-items:center;z-index:20;padding:20px;animation:fadeIn 0.3s}
+.modal-content{background:#0f0f0f;padding:25px;border-radius:20px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;border:1px solid rgba(255,255,255,0.05);animation:scaleIn 0.3s}
 .modal img{width:100%;max-height:45vh;object-fit:cover;border-radius:12px;transition:.3s}
 .modal img:hover{transform:scale(1.05)}
 .close{float:right;cursor:pointer;font-size:1.2rem}
@@ -46,56 +51,86 @@ nav a:hover{color:#fff}
 
 /* CART */
 .cart-item{display:flex;justify-content:space-between;margin:10px 0;border-bottom:1px solid #222;padding-bottom:8px}
-.checkout{background:linear-gradient(45deg,#d4af37,#f5e6a8);color:#000;padding:12px;border-radius:12px;margin-top:15px;text-align:center;cursor:pointer;font-weight:600}
+.checkout{background:linear-gradient(45deg,#d4af37,#f5e6a8);color:#000;padding:12px;border-radius:12px;margin-top:15px;text-align:center;cursor:pointer;font-weight:600;transition:0.3s}
+.checkout:hover{transform:scale(1.03)}
 
-/* ========================================= */
-/* MOBILE RESPONSIVENESS FIXES               */
-/* ========================================= */
-@media (max-width: 768px) {
-    /* Stack the header and center items */
-    header {
-        flex-direction: column;
-        padding: 15px 20px;
-        gap: 15px;
-    }
-    .logo h1 {
-        font-size: 1.5rem; /* Slightly smaller logo text */
-    }
-    nav {
-        display: flex;
-        gap: 15px;
-        align-items: center;
-    }
-    nav a {
-        margin-left: 0; /* Remove the wide left margin */
-    }
-    
-    /* Shrink the massive hero text */
-    .hero h2 {
-        font-size: 2.5rem;
-        padding: 0 15px;
-    }
-    
-    /* Give the products breathing room and force 1 column */
-    .products {
-        padding: 40px 20px;
-        grid-template-columns: 1fr;
-    }
-    
-    /* Tighten up the modal so it fits on small phone screens */
-    .modal {
-        padding: 10px;
-    }
-    .modal-content {
-        padding: 15px;
-    }
-    .modal img {
-        max-height: 40vh;
-    }
+/* ANIMATIONS */
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(30px)}
+to{opacity:1;transform:translateY(0)}
 }
+@keyframes fadeIn{
+from{opacity:0}
+to{opacity:1}
+}
+@keyframes scaleIn{
+from{transform:scale(0.9);opacity:0}
+to{transform:scale(1);opacity:1}
+}
+
+/* MOBILE */
+@media (max-width:768px){
+header{flex-direction:column;padding:15px 20px;gap:10px}
+.hero h2{font-size:2.3rem}
+.products{padding:30px 15px;grid-template-columns:1fr}
+.card img{height:200px}
+.modal{padding:10px}
+.modal img{max-height:35vh}
+}
+
+
+/* LOADER */
+#loader{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:#000;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+.loader-logo {
+  width: 120px;
+  opacity: 0;
+  transform: scale(0.8);
+  animation: logoReveal 1.5s ease forwards, glowPulse 2s infinite alternate;
+}
+
+
+@keyframes logoReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes glowPulse {
+  from {
+    filter: drop-shadow(0 0 5px rgba(212,175,55,0.3));
+  }
+  to {
+    filter: drop-shadow(0 0 20px rgba(212,175,55,0.8));
+  }
+}
+
+
 </style>
 </head>
 <body>
+
+<!-- INTRO LOADER -->
+<div id="loader">
+  <div class="loader-content">
+    <img src="product/logo.png" class="loader-logo">
+  </div>
+</div>
 
 <header>
 <div class="logo">
@@ -142,7 +177,6 @@ nav a:hover{color:#fff}
 <script>
 let selectedProduct=null;
 let cart=JSON.parse(localStorage.getItem('cart'))||[];
-
 const names=["Noir Signature","Aurum Wallet","Eclipse Carry","Imperial Set","Obsidian Edition"];
 
 function renderProducts(){
@@ -195,31 +229,39 @@ container.innerHTML='';
 let total=0;
 cart.forEach((item,index)=>{
 total+=item.price;
-// Added an onclick to the X so users can actually remove items visually in the cart!
-container.innerHTML+=`<div class='cart-item'>${names[item.id%names.length]} <div><span>$${item.price}</span> <span style="cursor:pointer; margin-left:10px;" onclick="removeItem(${index})">❌</span></div></div>`;
+container.innerHTML+=`<div class='cart-item'>${names[item.id%names.length]} <div><span>$${item.price}</span> <span style="cursor:pointer;margin-left:10px" onclick="removeItem(${index})">❌</span></div></div>`;
 });
-container.innerHTML+=`<div class='cart-item' style='color:#d4af37;font-weight:600; border-top: 1px solid #333; padding-top: 10px;'><span>Total</span><span>$${total}</span></div>`;
+container.innerHTML+=`<div class='cart-item' style='color:#d4af37;font-weight:600;border-top:1px solid #333;padding-top:10px'><span>Total</span><span>$${total}</span></div>`;
 }
 
 function closeCart(){document.getElementById('cartModal').style.display='none'}
 
-// Added the removeItem function back in so the X button works
 function removeItem(i){
-    cart.splice(i,1);
-    localStorage.setItem('cart',JSON.stringify(cart));
-    openCart();
-    updateCart();
+cart.splice(i,1);
+localStorage.setItem('cart',JSON.stringify(cart));
+openCart();
+updateCart();
 }
 
 function checkout(){alert('Next: Stripe Integration 🚀')}
 
-// Close modals when clicking the dark background
-window.onclick = function(event) {
-    const prodModal = document.getElementById('productModal');
-    const cartModal = document.getElementById('cartModal');
-    if (event.target === prodModal) closeModal();
-    if (event.target === cartModal) closeCart();
+window.onclick=function(event){
+const p=document.getElementById('productModal');
+const c=document.getElementById('cartModal');
+if(event.target===p)closeModal();
+if(event.target===c)closeCart();
 }
+
+// LOADER CONTROL
+window.onload = function() {
+  const loader = document.getElementById('loader');
+
+  setTimeout(() => {
+    loader.style.opacity = '0';
+    loader.style.visibility = 'hidden';
+  }, 2000);
+};
+
 
 renderProducts();
 updateCart();
