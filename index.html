@@ -38,35 +38,40 @@ nav a:hover{color:#fff}
 .btn{margin-top:12px;display:inline-block;padding:10px 18px;background:linear-gradient(45deg,#d4af37,#f5e6a8);color:#000;border-radius:20px;cursor:pointer;font-size:14px;font-weight:600;transition:0.3s}
 .btn:hover{transform:scale(1.05)}
 
-/* MODAL */
+/* MODAL & CART */
 .modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);display:none;justify-content:center;align-items:center;z-index:20;padding:20px;animation:fadeIn 0.3s}
 .modal-content{background:#0f0f0f;padding:25px;border-radius:20px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;border:1px solid rgba(255,255,255,0.05);animation:scaleIn 0.3s}
 .modal img{width:100%;max-height:45vh;object-fit:cover;border-radius:12px;transition:.3s}
-.modal img:hover{transform:scale(1.05)}
-.close{float:right;cursor:pointer;font-size:1.2rem}
+.close{float:right;cursor:pointer;font-size:1.2rem;color:#aaa;transition:0.3s}
+.close:hover{color:#d4af37}
 .desc{color:#aaa;margin-top:10px;line-height:1.6}
-.badge{margin-top:10px;background:#d4af37;color:#000;padding:5px 10px;border-radius:6px;font-size:12px;display:inline-block}
+.badge{margin-top:10px;background:#d4af37;color:#000;padding:5px 10px;border-radius:6px;font-size:12px;display:inline-block;font-weight:600}
 .specs{margin-top:10px;color:#bbb;font-size:14px}
 .cert{margin-top:15px;border:1px solid #d4af37;padding:12px;border-radius:10px;color:#d4af37;font-size:13px;text-align:center}
-
-/* CART */
 .cart-item{display:flex;justify-content:space-between;margin:10px 0;border-bottom:1px solid #222;padding-bottom:8px}
-.checkout{background:linear-gradient(45deg,#d4af37,#f5e6a8);color:#000;padding:12px;border-radius:12px;margin-top:15px;text-align:center;cursor:pointer;font-weight:600;transition:0.3s}
-.checkout:hover{transform:scale(1.03)}
+.checkout-btn{background:linear-gradient(45deg,#d4af37,#f5e6a8);color:#000;padding:12px;border-radius:12px;margin-top:15px;text-align:center;cursor:pointer;font-weight:600;transition:0.3s;border:none;width:100%;font-size:16px}
+.checkout-btn:hover{transform:scale(1.03);box-shadow:0 10px 20px rgba(212,175,55,0.3)}
+.checkout-btn:disabled{background:#333;color:#777;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* CHECKOUT FORM STYLES */
+.form-group{margin-top:15px;text-align:left}
+.form-group label{font-size:12px;color:#aaa;margin-bottom:5px;display:block;text-transform:uppercase;letter-spacing:1px}
+.form-input{width:100%;padding:12px;background:#141414;border:1px solid #333;border-radius:8px;color:#fff;font-family:Poppins;font-size:14px;transition:0.3s;outline:none}
+.form-input:focus{border-color:#d4af37;box-shadow:0 0 10px rgba(212,175,55,0.1)}
+.form-row{display:flex;gap:15px}
+.form-row .form-group{flex:1}
+.success-check{font-size:3rem;color:#d4af37;margin-bottom:15px;animation:scaleIn 0.5s ease}
 
 /* ANIMATIONS */
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(30px)}
-to{opacity:1;transform:translateY(0)}
-}
-@keyframes fadeIn{
-from{opacity:0}
-to{opacity:1}
-}
-@keyframes scaleIn{
-from{transform:scale(0.9);opacity:0}
-to{transform:scale(1);opacity:1}
-}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scaleIn{from{transform:scale(0.9);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes logoReveal{0%{opacity:0;transform:scale(0.7);filter:blur(10px)}100%{opacity:1;transform:scale(1);filter:blur(0)}}
+@keyframes glowPulse{from{filter:drop-shadow(0 0 5px rgba(212,175,55,0.3))}to{filter:drop-shadow(0 0 20px rgba(212,175,55,0.8))}}
+
+/* LOADER */
+#loader{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;justify-content:center;align-items:center;z-index:9999;transition:opacity 0.8s ease, visibility 0.8s ease}
+.loader-logo{width:120px;opacity:0;transform:scale(0.8);animation:logoReveal 1.5s ease forwards, glowPulse 2s infinite alternate}
 
 /* MOBILE */
 @media (max-width:768px){
@@ -76,67 +81,21 @@ header{flex-direction:column;padding:15px 20px;gap:10px}
 .card img{height:200px}
 .modal{padding:10px}
 .modal img{max-height:35vh}
+.form-row{flex-direction:column;gap:0}
 }
-
-
-/* LOADER */
-#loader{
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-background:#000;
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:9999;
-/* Add this line so it fades out smoothly! */
-transition: opacity 0.8s ease, visibility 0.8s ease; 
-}
-.loader-logo {
-  width: 120px;
-  opacity: 0;
-  transform: scale(0.8);
-  animation: logoReveal 1.5s ease forwards, glowPulse 2s infinite alternate;
-}
-
-
-@keyframes logoReveal {
-  0% {
-    opacity: 0;
-    transform: scale(0.7);
-    filter: blur(10px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-    filter: blur(0);
-  }
-}
-
-@keyframes glowPulse {
-  from {
-    filter: drop-shadow(0 0 5px rgba(212,175,55,0.3));
-  }
-  to {
-    filter: drop-shadow(0 0 20px rgba(212,175,55,0.8));
-  }
-}
-
-
 </style>
 </head>
 <body>
 
-<!-- INTRO LOADER -->
 <div id="loader">
   <div class="loader-content">
-    <img src="product/logo.png" class="loader-logo">
+    <img src="product/logo.png" class="loader-logo" alt="Swarnam Logo">
   </div>
 </div>
 
 <header>
 <div class="logo">
-<img src="product/logo.png">
+<img src="product/logo.png" alt="Swarnam">
 <h1>SWARNAM</h1>
 </div>
 <nav>
@@ -156,23 +115,74 @@ transition: opacity 0.8s ease, visibility 0.8s ease;
 <div class="modal" id="productModal">
 <div class="modal-content">
 <span class="close" onclick="closeModal()">✕</span>
-<img id="modal-img">
+<img id="modal-img" alt="Product">
 <h3 id="modal-title" style="margin-top:15px"></h3>
 <div class="price" id="modal-price"></div>
 <div id="modal-badge"></div>
 <p class="desc" id="modal-desc"></p>
 <div class="specs" id="modal-specs"></div>
 <div class="cert" id="modal-cert"></div>
-<div class="btn" style="width:100%;text-align:center" onclick="addToCart()">Add to Cart</div>
+<button class="checkout-btn" onclick="addToCart()">Add to Cart</button>
 </div>
 </div>
 
 <div class="modal" id="cartModal">
 <div class="modal-content">
 <span class="close" onclick="closeCart()">✕</span>
-<h3 style="color:#d4af37">Your Cart</h3>
+<h3 style="color:#d4af37; margin-bottom: 10px;">Your Cart</h3>
 <div id="cart-items"></div>
-<div class="checkout" onclick="checkout()">Checkout</div>
+<button class="checkout-btn" id="go-to-checkout" onclick="openCheckout()">Secure Checkout</button>
+</div>
+</div>
+
+<div class="modal" id="checkoutModal">
+<div class="modal-content" style="text-align: center;">
+<span class="close" onclick="closeCheckout()">✕</span>
+<h3 style="color:#d4af37; margin-bottom: 20px;">Complete Purchase</h3>
+
+<div id="checkout-form-container">
+    <form id="checkout-form" onsubmit="processPayment(event)">
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" class="form-input" placeholder="John Doe" required>
+        </div>
+        <div class="form-group">
+            <label>Shipping Address</label>
+            <input type="text" class="form-input" placeholder="123 Luxury Ave, Suite 400" required>
+        </div>
+        
+        <h4 style="color:#fff; margin-top: 25px; margin-bottom: 5px; text-align: left;">Payment Details</h4>
+        <div class="form-group">
+            <label>Card Number</label>
+            <input type="text" class="form-input" placeholder="0000 0000 0000 0000" maxlength="19" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Expiry (MM/YY)</label>
+                <input type="text" class="form-input" placeholder="12/28" maxlength="5" required>
+            </div>
+            <div class="form-group">
+                <label>CVC</label>
+                <input type="text" class="form-input" placeholder="123" maxlength="3" required>
+            </div>
+        </div>
+        
+        <div style="margin-top: 25px; border-top: 1px solid #333; padding-top: 15px; display: flex; justify-content: space-between; font-weight: 600;">
+            <span>Total to Pay:</span>
+            <span id="checkout-total-display" style="color: #d4af37;">$0</span>
+        </div>
+
+        <button type="submit" class="checkout-btn" id="pay-button">Pay Now</button>
+    </form>
+</div>
+
+<div id="success-screen" style="display: none; padding: 30px 0;">
+    <div class="success-check">✓</div>
+    <h3 style="margin-bottom: 10px;">Order Confirmed</h3>
+    <p style="color: #aaa; font-size: 14px; margin-bottom: 25px;">Welcome to the Swarnam elite. Your receipt and tracking details have been emailed to you.</p>
+    <button class="checkout-btn" onclick="finishCheckout()">Return to Store</button>
+</div>
+
 </div>
 </div>
 
@@ -180,6 +190,7 @@ transition: opacity 0.8s ease, visibility 0.8s ease;
 let selectedProduct=null;
 let cart=JSON.parse(localStorage.getItem('cart'))||[];
 const names=["Noir Signature","Aurum Wallet","Eclipse Carry","Imperial Set","Obsidian Edition"];
+let cartTotal = 0; // Keep track of the total globally
 
 function renderProducts(){
 const container=document.getElementById('products');
@@ -188,7 +199,7 @@ const price=(Math.floor(Math.random()*200)+200);
 const card=document.createElement('div');
 card.className='card';
 card.innerHTML=`
-<img src="product/img${i}.jpeg" loading="lazy">
+<img src="product/img${i}.jpeg" loading="lazy" alt="Product Image">
 <div class="card-content">
 <h3>${names[i%names.length]}</h3>
 <div class="price">$${price}</div>
@@ -227,13 +238,23 @@ function updateCart(){document.getElementById('cart-count').innerText=cart.lengt
 function openCart(){
 document.getElementById('cartModal').style.display='flex';
 const container=document.getElementById('cart-items');
+const checkoutBtn = document.getElementById('go-to-checkout');
 container.innerHTML='';
-let total=0;
+cartTotal=0;
+
+if(cart.length === 0) {
+    container.innerHTML = '<p style="color:#777; padding:20px 0; text-align:center;">Your cart is empty.</p>';
+    checkoutBtn.style.display = 'none';
+    return;
+}
+
+checkoutBtn.style.display = 'block';
+
 cart.forEach((item,index)=>{
-total+=item.price;
-container.innerHTML+=`<div class='cart-item'>${names[item.id%names.length]} <div><span>$${item.price}</span> <span style="cursor:pointer;margin-left:10px" onclick="removeItem(${index})">❌</span></div></div>`;
+cartTotal+=item.price;
+container.innerHTML+=`<div class='cart-item'>${names[item.id%names.length]} <div><span>$${item.price}</span> <span style="cursor:pointer;margin-left:10px;color:#777;" onclick="removeItem(${index})">✕</span></div></div>`;
 });
-container.innerHTML+=`<div class='cart-item' style='color:#d4af37;font-weight:600;border-top:1px solid #333;padding-top:10px'><span>Total</span><span>$${total}</span></div>`;
+container.innerHTML+=`<div class='cart-item' style='color:#d4af37;font-weight:600;border-top:1px solid #333;padding-top:10px'><span>Total</span><span>$${cartTotal}</span></div>`;
 }
 
 function closeCart(){document.getElementById('cartModal').style.display='none'}
@@ -245,25 +266,69 @@ openCart();
 updateCart();
 }
 
-function checkout(){alert('Next: Stripe Integration 🚀')}
+/* NEW CHECKOUT LOGIC */
+function openCheckout(){
+    closeCart();
+    document.getElementById('checkout-total-display').innerText = `$${cartTotal}`;
+    document.getElementById('checkoutModal').style.display='flex';
+}
 
+function closeCheckout(){
+    document.getElementById('checkoutModal').style.display='none';
+}
+
+function processPayment(event) {
+    event.preventDefault(); // Stop page from refreshing
+    const payBtn = document.getElementById('pay-button');
+    
+    // Simulate payment processing
+    payBtn.innerText = 'Processing...';
+    payBtn.disabled = true;
+
+    setTimeout(() => {
+        // Hide form, show success screen
+        document.getElementById('checkout-form-container').style.display = 'none';
+        document.getElementById('success-screen').style.display = 'block';
+        
+        // Empty the cart
+        cart = [];
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCart();
+        
+        // Reset button for next time
+        payBtn.innerText = 'Pay Now';
+        payBtn.disabled = false;
+    }, 2000); // 2 second fake delay to look authentic
+}
+
+function finishCheckout() {
+    closeCheckout();
+    // Reset the modal content for the next purchase
+    setTimeout(() => {
+        document.getElementById('checkout-form-container').style.display = 'block';
+        document.getElementById('success-screen').style.display = 'none';
+        document.getElementById('checkout-form').reset();
+    }, 500);
+}
+
+// Window click to close modals
 window.onclick=function(event){
 const p=document.getElementById('productModal');
 const c=document.getElementById('cartModal');
+const ch=document.getElementById('checkoutModal');
 if(event.target===p)closeModal();
 if(event.target===c)closeCart();
+if(event.target===ch)closeCheckout();
 }
 
 // LOADER CONTROL
 window.onload = function() {
   const loader = document.getElementById('loader');
-
   setTimeout(() => {
     loader.style.opacity = '0';
     loader.style.visibility = 'hidden';
   }, 2000);
 };
-
 
 renderProducts();
 updateCart();
